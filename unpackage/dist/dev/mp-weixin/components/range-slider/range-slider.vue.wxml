@@ -1,0 +1,17 @@
+<import src="/components/slots" />
+<template name="d2354dec">
+  <view class="_view data-v-2a7c2293 range-slider" style=" {{'width:' + width + 'rpx;height:' + height + 'rpx'}}">
+    <template name="minBlock"></template>
+    <template name="maxBlock"></template>
+    <view class="_view data-v-2a7c2293 range-bar" style=" {{'width:100%;height:' + barHeight + 'rpx'}}">
+      <view class="_view data-v-2a7c2293 range-bar-bg" style=" {{'background-color:' + backgroundColor + ''}}"></view>
+      <view class="_view data-v-2a7c2293 range-bar-progress" style=" {{'margin-left:' +  progressBarLeft +  'rpx;width:' +  progressBarWidth +  'rpx;background-color:' +  activeColor +  ''}}"></view>
+    </view>
+    <view class="_view data-v-2a7c2293 block" bindtouchstart="handleProxy" bindtouchmove="handleProxy" bindtouchend="handleProxy" data-left="{{minBlockLeft}}" data-tag="minBlock" data-eventid="{{'ZjA-0'}}" data-comkey="{{$k}}" style=" {{'width:' +  blockSize +  'rpx;height:' +  blockSize +  'rpx;margin-left:' +  minBlockLeft +  'rpx;'}}">
+      <template data="{{...$root['0'], ...$root[$k], $root}}" is="{{$slotminBlock || 'minBlock'}}"></template>
+    </view>
+    <view class="_view data-v-2a7c2293 block" bindtouchstart="handleProxy" bindtouchmove="handleProxy" bindtouchend="handleProxy" data-left="{{maxBlockLeft}}" data-tag="maxBlock" data-eventid="{{'WbQ-1'}}" data-comkey="{{$k}}" style=" {{'width:' +  blockSize +  'rpx;height:' +  blockSize +  'rpx;margin-left:' +  maxBlockLeft +  'rpx;'}}">
+      <template data="{{...$root['0'], ...$root[$k], $root}}" is="{{$slotmaxBlock || 'maxBlock'}}"></template>
+    </view>
+  </view>
+</template>

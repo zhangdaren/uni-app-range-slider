@@ -1,0 +1,21 @@
+<import src="/components/range-slider/range-slider.vue.wxml" />
+<template name="1d0cb08c">
+  <view class="_view data-v-d9ee6c46 content">
+    <view class="_view data-v-d9ee6c46 text-center mrg50T">
+      <text class="_text data-v-d9ee6c46 title">区间选择滑块/范围选择滑块</text>
+    </view>
+    <view class="_view data-v-d9ee6c46 rowBox mrg50T">
+      <view class="_view data-v-d9ee6c46 sliderBox">
+        <template bindrangechange="handleProxy" data-eventid="{{'tFk-0'}}" data-comkey="{{$k}}" data="{{...$root['0'], ...$root[$kk+'r5d-0'],$root, $slotdefault:'data-v-d9ee6c46-default-r5d-0',$slotminBlock:'data-v-d9ee6c46-minBlock-r5d-0',$slotmaxBlock:'data-v-d9ee6c46-maxBlock-r5d-0'}}"
+          is="d2354dec"></template>
+      </view>
+      <view class="_view data-v-d9ee6c46 text-center">
+        <text class="_text data-v-d9ee6c46">区间：</text>
+        <text class="_text data-v-d9ee6c46">{{rangeValues[0]}}</text>
+        <text class="_text data-v-d9ee6c46">~</text>
+        <text class="_text data-v-d9ee6c46">{{rangeValues[1]}}</text>
+      </view>
+    </view>
+    <text class="_text data-v-d9ee6c46 tips">修改自：https://github.com/Money888/wechat-rangeslider</text>
+  </view>
+</template>
