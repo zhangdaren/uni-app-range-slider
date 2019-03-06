@@ -1,6 +1,9 @@
 # uni-app-range-slider
 uni-app 区间选择滑块
 
+说明：目前支持平台有APP、微信小程序、H5，其他平台未测试！   
+
+
 ## 效果图：
 ![效果图](https://zhangdaren.github.io/uni-app-range-slider/static/preview.png)
 
@@ -32,6 +35,9 @@ uni-app 区间选择滑块
 
 ---
 ## 更新历史说明：
+v1.0.2(20190306)   
+兼容H5，支持发布到浏览器   
+
 v1.0.1   
 1.增加拖动过程中，自动更新滑块值功能。   
 

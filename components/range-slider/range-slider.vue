@@ -19,9 +19,17 @@
 	export default {
 		data() {
 			return {
+				//#ifdef H5  
+				MAX_LENGTH: 294,
+				maxBlockLeft: 300,
+				//#endif  
+
+				// #ifndef H5  
 				MAX_LENGTH: 700,
-				minBlockLeft: 0,
 				maxBlockLeft: 350,
+				// #endif  
+
+				minBlockLeft: 0,
 				progressBarLeft: 0,
 				progressBarWidth: 350
 			}
@@ -70,7 +78,7 @@
 			},
 			//设置初始值
 			values: {
-				type: Object,
+				type: Array,
 				default: function() {
 					return [0, 100];
 				},
@@ -129,9 +137,18 @@
 				return 750 * px / _windowWidth;
 			},
 			_onBlockTouchStart: function(e) {
-				console.log("touchstart")
-				this._blockDownX = e.pageX
+				console.log("touchstart", e)
+
+				//#ifdef H5  
+				this._blockDownX = e.changedTouches[0].pageX;
+				this._blockLeft = parseFloat(e.target.dataset.left);
+				//#endif  
+
+				// #ifndef H5  
+				this._blockDownX = e.pageX;
 				this._blockLeft = e.target.dataset.left;
+				// #endif  
+
 				this._curBlock = e.target.dataset.tag;
 			},
 			_onBlockTouchMove: function(e) {
@@ -171,9 +188,15 @@
 			 */
 			_calculateValues: function(e) {
 				console.log("_calculateValues", e)
-				
+
+				var pageX = e.pageX;
+				//兼容h5平台
+				if (e.hasOwnProperty("changedTouches")) {
+					pageX = e.changedTouches[0].pageX;
+				}
+
 				var that = this;
-				var moveLength = e.pageX - that._blockDownX;
+				var moveLength = pageX - that._blockDownX;
 				var left = that._blockLeft + that._pxToRpx(moveLength);
 				left = Math.max(0, left);
 				left = Math.min(left, that.MAX_LENGTH);
