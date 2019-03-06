@@ -141,6 +141,14 @@
 				var values = that._calculateValues(e);
 				that._refreshProgressBar(values[2], values[3]);
 				that._refreshBlock(values[2], values[3]);
+				//拖动时也触发事件
+				var eventDetail = {
+					minValue: values[0],
+					maxValue: values[1],
+					fromUser: true
+				};
+				var eventOption = {};
+				that.$emit("rangechange", eventDetail, eventOption);
 			},
 			_onBlockTouchEnd: function(e) {
 				var that = this;
