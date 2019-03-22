@@ -5,10 +5,14 @@
 			<view class='range-bar-progress' :style="'margin-left:'+progressBarLeft+'rpx;width:'+progressBarWidth+'rpx;background-color:'+activeColor+''"></view>
 		</view>
 
-		<view class='block' :style="'width:'+blockSize+'rpx;height:'+blockSize+'rpx;margin-left:'+minBlockLeft+'rpx;'" @touchstart="_onBlockTouchStart" @touchmove='_onBlockTouchMove' @touchend='_onBlockTouchEnd' :data-left='minBlockLeft' data-tag='minBlock'>
+		<view class='block' :style="'width:'+blockSize+'rpx;height:'+blockSize+'rpx;margin-left:'+minBlockLeft+'rpx;'"
+		 @touchstart="_onBlockTouchStart" @touchmove='_onBlockTouchMove' @touchend='_onBlockTouchEnd' :data-left='minBlockLeft'
+		 data-tag='minBlock'>
 			<slot name='minBlock'></slot>
 		</view>
-		<view class='block' :style="'width:'+blockSize+'rpx;height:'+blockSize+'rpx;margin-left:'+maxBlockLeft+'rpx;'" @touchstart='_onBlockTouchStart' @touchmove='_onBlockTouchMove' @touchend='_onBlockTouchEnd' :data-left='maxBlockLeft' data-tag='maxBlock'>
+		<view class='block' :style="'width:'+blockSize+'rpx;height:'+blockSize+'rpx;margin-left:'+maxBlockLeft+'rpx;'"
+		 @touchstart='_onBlockTouchStart' @touchmove='_onBlockTouchMove' @touchend='_onBlockTouchEnd' :data-left='maxBlockLeft'
+		 data-tag='maxBlock'>
 			<slot name='maxBlock'></slot>
 		</view>
 	</view>
@@ -84,18 +88,27 @@
 				},
 			}
 		},
+		//////////////////H5平台，不支持onload，支持created/////////////////
+		//#ifdef H5  
+		created: function() {
+			this._refresh();
+		},
+		//#endif  
+		/////////////////////////////////////////////////////////////////
+		
+		//////////////////非H5平台，支持onload////////////////////////////
+		// #ifndef H5  
 		onLoad: function(option) {
-
-			console.log("load")
 			this._refresh();
 		},
 		onUnload: function() {
 
 		},
+		// #endif  
+		/////////////////////////////////////////////////////////////////
 		watch: {
 			//组件宽度
 			width: function(newVal, oldVal, changedPath) {
-				console.log("width", width)
 				var that = this;
 				if (newVal != that.width) {
 					this._refresh();
@@ -137,8 +150,6 @@
 				return 750 * px / _windowWidth;
 			},
 			_onBlockTouchStart: function(e) {
-				console.log("touchstart", e)
-
 				//#ifdef H5  
 				this._blockDownX = e.changedTouches[0].pageX;
 				this._blockLeft = parseFloat(e.target.dataset.left);
@@ -152,8 +163,6 @@
 				this._curBlock = e.target.dataset.tag;
 			},
 			_onBlockTouchMove: function(e) {
-				
-				console.log("mover")
 				var that = this;
 				var values = that._calculateValues(e);
 				that._refreshProgressBar(values[2], values[3]);
@@ -187,8 +196,6 @@
 			 * 根据手势计算相关数据
 			 */
 			_calculateValues: function(e) {
-				console.log("_calculateValues", e)
-
 				var pageX = e.pageX;
 				//兼容h5平台
 				if (e.hasOwnProperty("changedTouches")) {
