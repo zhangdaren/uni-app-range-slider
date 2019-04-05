@@ -21,6 +21,8 @@
 			</view>
 		</view>
 
+		<button @tap="test" class="testBtn">手动设置为10~60</button>
+
 		<text class="tips">修改自：https://github.com/Money888/wechat-rangeslider</text>
 	</view>
 </template>
@@ -49,6 +51,10 @@
 			onRangeChange: function(e) {
 				this.rangeValues =  [ Math.round(e.minValue),  Math.round(e.maxValue)];
 			},
+			test:function()
+			{
+				this.rangeValues = [10,60];
+			}
 		}
 	}
 </script>
@@ -87,5 +93,10 @@
 		font-size: 24upx;
 		text-align: center;
 		margin-top: 100upx;
+	}
+	
+	.testBtn
+	{
+		margin-top:100upx;
 	}
 </style>

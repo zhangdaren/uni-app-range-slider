@@ -18,6 +18,9 @@
 	</view>
 </template>
 <script>
+	/**
+	 * range-slider v1.0.4
+	 */
 	const _windowWidth = uni.getSystemInfoSync().windowWidth;
 
 	export default {
@@ -95,7 +98,7 @@
 		},
 		//#endif  
 		/////////////////////////////////////////////////////////////////
-		
+
 		//////////////////非H5平台，支持onload////////////////////////////
 		// #ifndef H5  
 		onLoad: function(option) {
@@ -140,7 +143,7 @@
 				var that = this;
 				var values = that.values;
 				if (that._isValuesValid(newVal) && that._isValuesValid(values)) {
-					if (newVal[0] != values[0] || newVal[1] != values[1])
+					if (values[0] != oldVal[0] || values[1] != oldVal[1])
 						that._refresh();
 				}
 			}
@@ -150,44 +153,53 @@
 				return 750 * px / _windowWidth;
 			},
 			_onBlockTouchStart: function(e) {
-				//#ifdef H5  
-				this._blockDownX = e.changedTouches[0].pageX;
-				this._blockLeft = parseFloat(e.target.dataset.left);
-				//#endif  
+				let tag = e.target.dataset.tag;
+				if (tag == 'minBlock' || tag == 'maxBlock') {
+					//#ifdef H5  
+					this._blockDownX = e.changedTouches[0].pageX;
+					this._blockLeft = parseFloat(e.target.dataset.left);
+					//#endif  
 
-				// #ifndef H5  
-				this._blockDownX = e.pageX;
-				this._blockLeft = e.target.dataset.left;
-				// #endif  
+					// #ifndef H5  
+					this._blockDownX = e.pageX;
+					this._blockLeft = e.target.dataset.left;
+					// #endif  
 
-				this._curBlock = e.target.dataset.tag;
+					this._curBlock = e.target.dataset.tag;
+				}
 			},
 			_onBlockTouchMove: function(e) {
-				var that = this;
-				var values = that._calculateValues(e);
-				that._refreshProgressBar(values[2], values[3]);
-				that._refreshBlock(values[2], values[3]);
-				//拖动时也触发事件
-				var eventDetail = {
-					minValue: values[0],
-					maxValue: values[1],
-					fromUser: true
-				};
-				var eventOption = {};
-				that.$emit("rangechange", eventDetail, eventOption);
+				let tag = e.target.dataset.tag;
+				if (tag == 'minBlock' || tag == 'maxBlock') {
+					var that = this;
+					var values = that._calculateValues(e);
+					that._refreshProgressBar(values[2], values[3]);
+					that._refreshBlock(values[2], values[3]);
+					//拖动时也触发事件
+					var eventDetail = {
+						minValue: values[0],
+						maxValue: values[1],
+						fromUser: true
+					};
+					var eventOption = {};
+					that.$emit("rangechange", eventDetail, eventOption);
+				}
 			},
 			_onBlockTouchEnd: function(e) {
-				var that = this;
-				var values = that._calculateValues(e.mp.changedTouches[0]);
-				that._refreshProgressBar(values[2], values[3]);
-				that._refreshBlock(values[2], values[3]);
-				var eventDetail = {
-					minValue: values[0],
-					maxValue: values[1],
-					fromUser: true
-				};
-				var eventOption = {};
-				that.$emit("rangechange", eventDetail, eventOption);
+				let tag = e.target.dataset.tag;
+				if (tag == 'minBlock' || tag == 'maxBlock') {
+					var that = this;
+					var values = that._calculateValues(e.mp.changedTouches[0]);
+					that._refreshProgressBar(values[2], values[3]);
+					that._refreshBlock(values[2], values[3]);
+					var eventDetail = {
+						minValue: values[0],
+						maxValue: values[1],
+						fromUser: true
+					};
+					var eventOption = {};
+					that.$emit("rangechange", eventDetail, eventOption);
+				}
 			},
 			_isValuesValid: function(values) {
 				return values != null && values != undefined && values.length == 2;
@@ -254,6 +266,7 @@
 			 * 刷新整个视图
 			 */
 			_refresh: function() {
+				console.log("refresh")
 				var that = this;
 				var MAX_LENGTH = that.width - that.blockSize;
 				that.MAX_LENGTH = MAX_LENGTH;
