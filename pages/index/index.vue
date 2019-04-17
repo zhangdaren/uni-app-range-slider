@@ -50,6 +50,8 @@
 		methods: {
 			onRangeChange: function(e) {
 				this.rangeValues =  [ Math.round(e.minValue),  Math.round(e.maxValue)];
+				
+				console.log(this.rangeValues)
 			},
 			test:function()
 			{
