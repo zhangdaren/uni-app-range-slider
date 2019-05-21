@@ -31,7 +31,7 @@
 </template>
 <script>
 /**
- * range-slider v1.0.5
+ * range-slider v1.0.6
  */
 const _windowWidth = uni.getSystemInfoSync().windowWidth;
 
@@ -103,22 +103,15 @@ export default {
 			}
 		}
 	},
-	//////////////////H5平台，不支持onload，支持created/////////////////
-	//#ifdef H5
 	created: function() {
+		//使用自定义组件编译模式时，支持生命周期为：created
 		this._refresh();
 	},
-	//#endif
-	/////////////////////////////////////////////////////////////////
-
-	//////////////////非H5平台，支持onload////////////////////////////
-	// #ifndef H5
 	onLoad: function(option) {
+		//不使用自定义组件编译模式时，支持生命周期为：onload
 		this._refresh();
 	},
 	onUnload: function() {},
-	// #endif
-	/////////////////////////////////////////////////////////////////
 	watch: {
 		//组件宽度
 		width: function(newVal, oldVal, changedPath) {
