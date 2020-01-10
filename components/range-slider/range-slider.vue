@@ -180,8 +180,8 @@ export default {
 		_onBlockTouchStart: function(e) {
 			let tag = e.target.dataset.tag;
 			if (tag == 'minBlock' || tag == 'maxBlock') {
-				this.isMinActive = (tag == 'minBlock');
-				this.isMaxActive = (tag == 'maxBlock');
+				this.isMinActive = tag == 'minBlock';
+				this.isMaxActive = tag == 'maxBlock';
 
 				//兼容h5平台及某版本微信
 				if (e.hasOwnProperty('changedTouches')) {
@@ -340,7 +340,7 @@ export default {
 			let len = index > -1 ? stepStr.length - index - 1 : 0;
 			let offestNum = parseInt(1 + Array(('' + len).length + 1).join(0)) * 0.1;
 			let tmpNum = num * offestNum;
-			return ((parseInt(tmpNum / step + step * 0.5) * step) / offestNum).toFixed(len);
+			return ((parseInt(tmpNum / step + (step > 1 ? 1 : step) * 0.5) * step) / offestNum).toFixed(len);
 		}
 	}
 };
