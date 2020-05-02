@@ -319,9 +319,9 @@ export default {
 			that.maxBlockLeft = MAX_LENGTH;
 			that.progressBarWidth = MAX_LENGTH;
 			var values = that.values;
-			if (this.originalMinValue && this.originalMinValue) {
-				values = [this.originalMinValue || values[0], this.originalMaxValue || values[1]];
-			}
+			// if (this.originalMinValue && this.originalMinValue) {
+			// 	values = [this.originalMinValue || values[0], this.originalMaxValue || values[1]];
+			// }
 
 			if (that._isValuesValid(values)) {
 				values[0] = Math.max(that.min, values[0]);
